@@ -3,27 +3,27 @@
 #include<time.h>
 #include<Windows.h>
 
-//∆ƒ∂ÛπÃ≈Õ
-//±‚¬˜ ±Ê¿Ã
+//ÌååÎùºÎØ∏ÌÑ∞
+//Í∏∞Ï∞® Í∏∏Ïù¥
 #define LEN_MIN 15
 #define LEN_MAX 50
-//»Æ∑¸
+//ÌôïÎ•†
 #define PROB_MIN 10
 #define PROB_MAX 90
-//∏∂µøºÆ √º∑¬
+//ÎßàÎèôÏÑù Ï≤¥Î†•
 #define STM_MIN  0
 #define STM_MAX  5
-//æÓ±◊∑Œ π¸¿ß
+//Ïñ¥Í∑∏Î°ú Î≤îÏúÑ
 #define AGGRO_MIN  0
 #define AGGRO_MAX  5
-//∏∂µøºÆ ¿Ãµø πÊ«‚
+//ÎßàÎèôÏÑù Ïù¥Îèô Î∞©Ìñ•
 #define MOVE_LEFT  1
 #define MOVE_STAY  0
-// ¡ª∫Ò¿«∞¯∞›¥ÎªÛ
+// Ï¢ÄÎπÑÏùòÍ≥µÍ≤©ÎåÄÏÉÅ
 #define ATK_NONE  0
 #define ATK_CITIZEN  1
 #define ATK_DONGSEOK  2
-// ∏∂µøºÆ«‡µø
+// ÎßàÎèôÏÑùÌñâÎèô
 #define ACTION_REST  0
 #define ACTION_PROVOKE  1
 #define ACTION_PULL  2
@@ -31,18 +31,19 @@
 
 int main(void) {
 
-    int LEN; //±‚¬˜ ±Ê¿Ã
-    int PROB; //»Æ∑¸
-    int STM; //∏∂µøºÆ √º∑¬
-    int C_AGGRO = 1; //Ω√πŒ æÓ±◊∑Œ
-    int M_AGGRO = 1; //∏∂µøºÆ æÓ±◊∑Œ
-    int MOVE; //∏∂µøºÆ ¿Ãµø
-    int C, Z, M; // Ω√πŒ, ¡ª∫Ò
+    int LEN; //Í∏∞Ï∞® Í∏∏Ïù¥
+    int PROB; //ÌôïÎ•†
+    int STM = 0; //ÎßàÎèôÏÑù Ï≤¥Î†•
+    int C_AGGRO = 1; //ÏãúÎØº Ïñ¥Í∑∏Î°ú
+    int M_AGGRO = 1; //ÎßàÎèôÏÑù Ïñ¥Í∑∏Î°ú
+    int MOVE; //ÎßàÎèôÏÑù Ïù¥Îèô
+    int C, Z, M; // ÏãúÎØº, Ï¢ÄÎπÑ
     int i;
-    int Z_turn = 0; // Z∏¶ 2≈œ∏∂¥Ÿ øÚ¡˜¿Ã±‚ ¿ß«— ∫Øºˆ
+    int Z_turn = 0; // ZÎ•º 2ÌÑ¥ÎßàÎã§ ÏõÄÏßÅÏù¥Í∏∞ ÏúÑÌïú Î≥ÄÏàò
+    int ACTION = 0;
 
     while (1) {
-        //±‚¬˜ ±Ê¿Ã ¿‘∑¬ π◊ π¸¿ß º≥¡§
+        //Í∏∞Ï∞® Í∏∏Ïù¥ ÏûÖÎ†• Î∞è Î≤îÏúÑ ÏÑ§Ï†ï
         printf("train length(15~50) >> ");
         scanf_s("%d", &LEN);
 
@@ -51,16 +52,15 @@ int main(void) {
         }
     }
     while (1) {
-        //∏∂µøºÆ √º∑¬ ¿‘∑¬ π◊ π¸¿ß º≥¡§
+        //ÎßàÎèôÏÑù Ï≤¥Î†• ÏûÖÎ†• Î∞è Î≤îÏúÑ ÏÑ§Ï†ï
         printf("madongseokstamina(0~5)>> ");
         scanf_s("%d", &STM);
-
         if (STM >= STM_MIN && STM <= STM_MAX) {
             break;
         }
     }
     while (1) {
-        //»Æ∑¸ ¿‘∑¬ π◊ π¸¿ß º≥¡§
+        //ÌôïÎ•† ÏûÖÎ†• Î∞è Î≤îÏúÑ ÏÑ§Ï†ï
         printf("percentile probability 'p'(10~90) >> ");
         scanf_s("%d", &PROB);
 
@@ -69,15 +69,15 @@ int main(void) {
         }
     }
     
-    // ≥≠ºˆ º≥¡§
+    // ÎÇúÏàò ÏÑ§Ï†ï
     srand((unsigned int)time(NULL));
 
-    // CøÕ Z¿« √ ±‚ ªÛ≈¬ º≥¡§
+    // CÏôÄ ZÏùò Ï¥àÍ∏∞ ÏÉÅÌÉú ÏÑ§Ï†ï
     C = LEN - 6;
     Z = LEN - 3;
     M = LEN - 2;
 
-    // ±‚¬˜ ∏∏µÈ±‚
+    // Í∏∞Ï∞® ÎßåÎì§Í∏∞
     for (i = 0; i < LEN; i++) {
         printf("#");
     }
@@ -100,24 +100,18 @@ int main(void) {
     printf("\n\n");
     Sleep(4000);
 
-    // π›∫ππÆ
+    // Î∞òÎ≥µÎ¨∏
     while (1) {
 
-        // Z∞° C ø∑ ƒ≠ø° µµ¬¯«œ∏È ±∏√‚ Ω«∆–
-        if (Z == C + 1) {
-            printf("GAME OVER!\nCitizen(s) has(have) been attacked by a zombie\n");
-            break;
-        }
-
-        // 0∫Œ≈Õ 100 ªÁ¿Ã¿« ≥≠ºˆ∏¶ ª˝º∫
+        // 0Î∂ÄÌÑ∞ 100 ÏÇ¨Ïù¥Ïùò ÎÇúÏàòÎ•º ÏÉùÏÑ±
         int r1 = rand() % 101;
         int r2 = rand() % 101;
 
-        // Ω√πŒ ¿Ãµø
+        // ÏãúÎØº Ïù¥Îèô
         if (r1 <= (100 - PROB)) {
             C--;
         }
-        //¡ª∫Ò¿Ãµø
+        //Ï¢ÄÎπÑÏù¥Îèô
         if (Z_turn % 2 == 0) {
             if (C_AGGRO >= M_AGGRO) {
                 Z--;
@@ -127,7 +121,7 @@ int main(void) {
             }
         }
 
-        // ø≠¬˜ ªÛ≈¬ √‚∑¬
+        // Ïó¥Ï∞® ÏÉÅÌÉú Ï∂úÎ†•
         for (i = 0; i < LEN; i++) {
             printf("#");
         }
@@ -149,7 +143,7 @@ int main(void) {
         }
         printf("\n\n");
 
-        // Ω√πŒ ªÛ≈¬ √‚∑¬
+        // ÏãúÎØº ÏÉÅÌÉú Ï∂úÎ†•
         if (r1 <= (100 - PROB)) {
             if (C_AGGRO < AGGRO_MAX && C_AGGRO > AGGRO_MIN) {
                 C_AGGRO++; 
@@ -163,7 +157,7 @@ int main(void) {
             printf("citizen: stay %d (aggro: %d -> %d)\n", C, C_AGGRO + 1, C_AGGRO);
         }
 
-        // ¡ª∫Ò ªÛ≈¬ √‚∑¬
+        // Ï¢ÄÎπÑ ÏÉÅÌÉú Ï∂úÎ†•
         if (Z_turn % 2 == 0) {
             if (C_AGGRO >= M_AGGRO) {
                 printf("zombie: %d -> %d\n", Z + 1, Z);
@@ -177,6 +171,9 @@ int main(void) {
             else if (Z == M + 1) {
                 printf("zombie: stay %d\n", Z);
             }
+            if (ACTION == ACTION_PULL && r2 <= (100 - PROB)) {
+                printf("zombie: stay %d\n", Z);
+            }
         }
 
         if (Z_turn % 2 == 1) {
@@ -184,7 +181,6 @@ int main(void) {
         }
         printf("\n");
 
-        
         while (1) {
             printf("madongseokmove(0:stay, 1:left)>>");
             scanf_s("%d", &MOVE);
@@ -193,7 +189,7 @@ int main(void) {
                 break;
             }
         }
-        //∏∂µøºÆ ¿Ãµø
+        //ÎßàÎèôÏÑù Ïù¥Îèô
         if (MOVE == MOVE_LEFT) {
             M--;
         }
@@ -232,19 +228,90 @@ int main(void) {
             printf("madongseok: stay %d(aggro: %d -> %d, stamina: %d)\n", M, M_AGGRO + 1, M_AGGRO, STM);
         }
 
-        //«‡µø
+        //ÌñâÎèô
         
-        // C∞° øﬁ¬ ≥°(1π¯ø≠)ø° µµ¥ﬁ«œ∏È ±∏√‚ º∫∞¯
+        // CÍ∞Ä ÏôºÏ™ΩÎÅù(1Î≤àÏó¥)Ïóê ÎèÑÎã¨ÌïòÎ©¥ Íµ¨Ï∂ú ÏÑ±Í≥µ
         if (C == 1) {
             printf("SUCCESS!\ncitizen(s) escaped to the next train\n");
             break;
         }
         else {
-            printf("citizen does nothing.");
+            printf("citizen does nothing.\n");
+        }
+        // ZÍ∞Ä C ÏòÜ Ïπ∏Ïóê ÎèÑÏ∞©ÌïòÎ©¥ Íµ¨Ï∂ú Ïã§Ìå®
+        if (Z == C + 1) {
+            printf("GAME OVER!\nCitizen(s) has(have) been attacked by a zombie\n");
+            break;
+        }
+        else {
+            printf("zombie attacked nobody.\n");
+        }
+
+        //ÎëòÎã§ Ïù∏Ï†ëÌïúÍ≤ΩÏö∞
+        if (Z == C + 1 && M == Z + 1) {
+            if (C_AGGRO > M_AGGRO) {
+                printf("GAME OVER!\nCitizen(s) has(have) been attacked by a zombie\n");
+                break;
+            }
+            else {
+                STM--;
+                printf("Zomibeattacked madongseok(aggro: %d vs. %d, madongseokstamina: %d -> %d)\n", C_AGGRO, M_AGGRO, STM + 1, STM);
+            }
+        }
+        if (STM == 0) {
+            printf("GAME OEVER! citizen dead...\n");
+            break;
         }
         
+        if (M!= Z + 1) {
+            while (1) {
+                printf("madongseokaction(0.rest, 1.provoke)>>");
+                scanf_s("%d", &ACTION);
+
+                if (ACTION == ACTION_REST) {
+                    M_AGGRO--;
+                    STM++;
+                }
+                else if (ACTION == ACTION_PROVOKE) {
+                    M_AGGRO = AGGRO_MAX;
+                }
+
+                if (ACTION == ACTION_REST || ACTION == ACTION_PROVOKE) {
+                    break;
+                }
+            }
+        }
+
+        if (M = Z + 1) {
+            while (1) {
+                printf("madongseokaction(0.rest, 1.provoke, 2. pull)>> ");
+                scanf_s("%d", &ACTION);
+
+                if (ACTION == ACTION_REST) {
+                    M_AGGRO--;
+                    STM++;
+                }
+                else if (ACTION == ACTION_PROVOKE) {
+                    M_AGGRO = AGGRO_MAX;
+                }
+                else if (ACTION == ACTION_PULL) {
+                    M_AGGRO += 2;
+                    STM--;
+                    if (r2 <= (100 - PROB)) {
+                        printf("madongseokpulled zombie... Next turn, it can't move\n");
+                    }
+                    else {
+                        printf("madongseokfailed to pull zombie\n");
+                    }
+                }
+
+                if (ACTION == ACTION_REST || ACTION == ACTION_PROVOKE || ACTION == ACTION_PULL) {
+                    break;
+                }
+            }
+        }
         
-        // ≈œ ¡ı∞°
+        // ÌÑ¥ Ï¶ùÍ∞Ä
         Z_turn++;
     }
 }
