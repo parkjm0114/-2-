@@ -30,12 +30,12 @@ int main(void) {
 
     int LEN;            //기차 길이
     int PROB;           //확률
-    int STM = 0;        //마동석 체력
+    int STM;        //마동석 체력
     int C_AGGRO = 1;    //시민 어그로
     int M_AGGRO = 1;    //마동석 어그로
     int MOVE;           //마동석 이동
     int ATK;            //좀비공격대상
-    int ACTION = 0;     //마동석 행동
+    int ACTION;     //마동석 행동
     int C, Z, M;        // 시민, 좀비, 마동석
     int i;
     int Z_turn = 0;     // Z를 2턴마다 움직이기 위한 변수
@@ -113,7 +113,7 @@ int main(void) {
             else {
                 Z++;
             }
-            if (Z != C + 1 || M != Z + 1) {
+            if (Z !== C + 1 || M !== Z + 1) {
                 continue;
             }
         }
@@ -142,7 +142,7 @@ int main(void) {
 
         // 시민 상태 출력
         
-        if (C--) {
+        if (r1 <= (100 - PROB)) {
             printf("citizen: %d -> %d (aggro: %d -> %d)\n", C + 1, C, C_AGGRO, C_AGGRO + 1);
             C_AGGRO++;
         }
@@ -204,7 +204,7 @@ int main(void) {
         }
         printf("\n\n");
 
-        if (M--) {
+        if (MOVE == MOVE_LEFT) {
             printf("madongseok: %d -> %d (aggro: %d -> %d, stamina: %d)\n", M + 1, M, M_AGGRO, M_AGGRO + 1, STM);
             M_AGGRO++;
         }
@@ -225,7 +225,7 @@ int main(void) {
         }
 
         // Z 행동
-        if (Z = C + 1) {
+        if (Z == C + 1) {
             if (C_AGGRO > M_AGGRO) {
                 printf("GAME OVER!\nCitizen(s) has(have) been attacked by a zombie\n");
                 break;
@@ -234,7 +234,7 @@ int main(void) {
                 printf("zombie attacked nobody.\n");
             }
         }
-        else if (M = Z + 1) {
+        else if (M == Z + 1) {
             if (C_AGGRO <= M_AGGRO) {
                 printf("Zomibeattacked madongseok(aggro: %d vs. %d, madongseokstamina: %d -> %d)\n", C_AGGRO, M_AGGRO, STM, STM - 1);
                 STM--;
@@ -244,7 +244,7 @@ int main(void) {
             }
         }
         //둘다 인접한경우
-        else if (Z = C + 1 && M = Z + 1) {
+        else if (Z == C + 1 && M == Z + 1) {
             if (C_AGGRO > M_AGGRO) {
                 printf("GAME OVER!\nCitizen(s) has(have) been attacked by a zombie\n");
                 break;
@@ -261,12 +261,13 @@ int main(void) {
         
 
         while (1) {
-            if (M != Z + 1) {
-                printf("madongseokaction(0.rest, 1.provoke)>>");
+            
+            if (M == Z + 1) {
+                printf("madongseokaction(0.rest, 1.provoke, 2. pull)>> ");
                 scanf_s("%d", &ACTION);
             }
-            else if(M = Z + 1) {
-                printf("madongseokaction(0.rest, 1.provoke, 2. pull)>> ");
+            else {
+                printf("madongseokaction(0.rest, 1.provoke)>>");
                 scanf_s("%d", &ACTION);
             }
             
